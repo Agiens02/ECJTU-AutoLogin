@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="dropdown_options">
+        <item>中国电信</item>
+        <item>中国移动</item>
+        <item>中国联通</item>
+    </string-array>
+</resources>

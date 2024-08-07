@@ -1,0 +1,79 @@
+<!-- Original activity_main.xml content -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- Text Input Layout for the first input field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/editbox_account_hint"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/design_default_color_primary">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Text Input Layout for the second input field -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/editbox_password_hint"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/design_default_color_primary">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Dropdown for selecting an option -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/label_ISP"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@color/design_default_color_primary">
+        <Spinner
+            android:id="@+id/dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/dropdown_options"
+            style="@style/SpinnerStyle"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Button for submitting the form -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="doLogin"
+        app:cornerRadius="4dp"
+        android:text="@string/button_登录_文本"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/design_default_color_primary" />
+
+    <!-- Button for resetting the form -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="buttonSave"
+        android:text="@string/button_立即保存账号信息_文本"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/design_default_color_primary" />
+</LinearLayout>

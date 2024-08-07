@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">华交校园网工具</string>
+    <string name="title_activity_main">华交校园网工具</string>
+    <string name="editbox_account_hint">学号</string>
+    <string name="editbox_password_hint">智慧交大密码</string>
+    <string name="label_ISP">选择运营商</string>
+    <string name="button_登录_文本">登录</string>
+    <string name="button_立即保存账号信息_文本">保存账号信息</string>
+</resources>
