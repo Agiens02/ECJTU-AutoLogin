@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private val passwordKey = "密码"
     private val ispKey = "运营商"
     private val ispOptions = arrayOf("中国电信", "中国移动", "中国联通")
-    private var ispValue = 0
 
     private lateinit var etAccount: TextInputEditText
     private lateinit var etPassword: TextInputEditText
@@ -118,10 +117,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun but_debug(view: View) {
-        // 保留给调试测试功能使用
-    }
-
     private fun isWifiConnected(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
@@ -133,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         loginButton.isEnabled = false
 
         if (!isWifiConnected(this)) {
-            showAlertDialog("提示", "检测到您没有连接wifi\n如果您的手机显示已经连接了wifi，您可能需要在登录前关闭移动数据(流量)的开关")
+            showAlertDialog("提示", "检测到您没有连接wifi\n如果您的手机显示已经连接了wifi，您可能需要在登录前关闭移动数据开关")
             loginButton.isEnabled = true
             return
         }
@@ -179,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this).apply {
             setTitle(title)
             setMessage(message)
-            setPositiveButton("好的", null)
+            setPositiveButton("确定", null)
             show()
         }
     }
