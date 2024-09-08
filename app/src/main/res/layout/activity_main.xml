@@ -1,12 +1,16 @@
-<!-- Original activity_main.xml content -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:fillViewport="true"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
     <!-- Text Input Layout for the first input field -->
     <com.google.android.material.textfield.TextInputLayout
@@ -76,4 +80,5 @@
         android:text="@string/button_立即保存账号信息_文本"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/design_default_color_primary" />
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
