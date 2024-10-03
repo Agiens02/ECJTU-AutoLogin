@@ -20,7 +20,7 @@
         android:layout_marginBottom="16dp"
         android:hint="@string/editbox_account_hint"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="@color/design_default_color_primary">
+        app:boxStrokeColor="@color/primary">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_account"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         android:layout_marginBottom="16dp"
         android:hint="@string/editbox_password_hint"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="@color/design_default_color_primary">
+        app:boxStrokeColor="@color/primary">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_password"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         android:layout_marginBottom="16dp"
         android:hint="@string/label_ISP"
         app:boxBackgroundMode="outline"
-        app:boxStrokeColor="@color/design_default_color_primary">
+        app:boxStrokeColor="@color/primary">
         <Spinner
             android:id="@+id/dropdown"
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             style="@style/SpinnerStyle"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Button for submitting the form -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login"
         android:layout_width="match_parent"
@@ -73,15 +73,27 @@
         android:textColor="@android:color/white"
         android:backgroundTint="@color/primary" />
 
-    <!-- Button for resetting the form -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="buttonSave"
+        android:layout_marginBottom="16dp"
         android:text="@string/button_立即保存账号信息_文本"
         android:layout_marginHorizontal="20dp"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/primary" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:id="@+id/switch_auto_login"
+            android:layout_gravity="center"
+            android:text="@string/auto_login_text"
+            android:checked="true"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="20dp"
+            android:textColor="@android:color/black"
+            android:backgroundTint="@color/primary" />
     </LinearLayout>
 </ScrollView>
