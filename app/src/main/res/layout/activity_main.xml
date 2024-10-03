@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="50dp"
         android:padding="16dp">
 
     <!-- Text Input Layout for the first input field -->
@@ -68,8 +69,9 @@
         android:onClick="doLogin"
         app:cornerRadius="4dp"
         android:text="@string/button_登录_文本"
+        android:layout_marginHorizontal="20dp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/design_default_color_primary" />
+        android:backgroundTint="@color/primary" />
 
     <!-- Button for resetting the form -->
     <com.google.android.material.button.MaterialButton
@@ -78,7 +80,8 @@
         android:layout_height="wrap_content"
         android:onClick="buttonSave"
         android:text="@string/button_立即保存账号信息_文本"
+        android:layout_marginHorizontal="20dp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/design_default_color_primary" />
+        android:backgroundTint="@color/primary" />
     </LinearLayout>
 </ScrollView>

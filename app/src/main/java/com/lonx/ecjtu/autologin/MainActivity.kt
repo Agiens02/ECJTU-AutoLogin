@@ -33,9 +33,15 @@ class MainActivity : AppCompatActivity() {
     private var passwordValue_p: String? = null
     private var ispValue_p: Int = 0
 
-    override fun onStop() {
-        super.onStop()
-        finish()
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences = getSharedPreferences("userInformation", MODE_PRIVATE)
+        accountValue_p = sharedPreferences.getString(accountKey, "")
+        passwordValue_p = sharedPreferences.getString(passwordKey, "")
+        if (accountValue_p != null && passwordValue_p != null) {
+            Toast.makeText(this, "自动登录中", Toast.LENGTH_SHORT).show()
+            findViewById<Button>(R.id.button_login).performClick()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,11 +71,11 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        val autoRun = !accountValue_p.isNullOrEmpty() && !passwordValue_p.isNullOrEmpty()
-        if (autoRun) {
-            Toast.makeText(this, "自动登录中", Toast.LENGTH_SHORT).show()
-            findViewById<Button>(R.id.button_login).performClick()
-        }
+//        val autoRun = !accountValue_p.isNullOrEmpty() && !passwordValue_p.isNullOrEmpty()
+//        if (autoRun) {
+//            Toast.makeText(this, "自动登录中", Toast.LENGTH_SHORT).show()
+//            findViewById<Button>(R.id.button_login).performClick()
+//        }
     }
 
     private fun getISPSelect(): Int {
