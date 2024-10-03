@@ -1,13 +1,9 @@
 package com.lonx.ecjtu.autologin
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.preference.SwitchPreference
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -39,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (autoLogin){
+        if (autoLogin) {
             val account = sharedPreferences.getString(accountKey, "")
             val password = sharedPreferences.getString(passwordKey, "")
             if (!account.isNullOrEmpty() && !password.isNullOrEmpty()) {
@@ -57,57 +53,56 @@ class MainActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.editText_password)
         rgISP = findViewById(R.id.dropdown)
         switchMaterial = findViewById(R.id.switch_auto_login)
+
         etAccount.setText(sharedPreferences.getString(accountKey, ""))
         etPassword.setText(sharedPreferences.getString(passwordKey, ""))
         autoLogin = sharedPreferences.getBoolean(isAutoLogin, true)
         switchMaterial.isChecked = autoLogin
+
         rgISP.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ispOptions).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
         rgISP.setSelection(sharedPreferences.getInt(ispKey, 1) - 1)
+
         switchMaterial.setOnCheckedChangeListener { _, isChecked ->
             autoLogin = isChecked
             sharedPreferences.edit().putBoolean(isAutoLogin, isChecked).apply()
         }
     }
 
-    private fun getISPSelect():Int {
-        return rgISP.selectedItemPosition+1
-    }
+    private fun getISPSelect(): Int = rgISP.selectedItemPosition + 1
 
     fun buttonSave(view: View) {
         saveUserInformation()
     }
 
-
     private fun saveUserInformation() {
         val accountValue = etAccount.text.toString()
         val passwordValue = etPassword.text.toString()
         val ispValue = getISPSelect()
-        val autoLoginValue = switchMaterial.isChecked
-        sharedPreferences.edit().apply {
+
+        with(sharedPreferences.edit()) {
             putString(accountKey, accountValue)
             putString(passwordKey, passwordValue)
             putInt(ispKey, ispValue)
-            putBoolean(isAutoLogin, autoLoginValue)
-            commit()
+            apply()
         }
         Toast.makeText(this, "账号已保存", Toast.LENGTH_SHORT).show()
     }
 
     private fun isWifiConnected(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.type == ConnectivityManager.TYPE_WIFI
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
     }
 
     fun doLogin(view: View) {
         val loginButton = view as Button
-        loginButton.isEnabled = false
+        setLoginButtonEnabled(loginButton, false)
 
         if (!isWifiConnected(this)) {
             showAlertDialog("提示", "检测到您没有连接wifi，如果您的手机显示已经连接了wifi，您可能需要在登录前关闭移动数据开关")
-            loginButton.isEnabled = true
+            setLoginButtonEnabled(loginButton, true)
             return
         }
 
@@ -115,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         val password = etPassword.text.toString()
         if (account.isEmpty() || password.isEmpty()) {
             showAlertDialog("提示", "学号或密码不能为空！")
-            loginButton.isEnabled = true
+            setLoginButtonEnabled(loginButton, true)
             return
         }
 
@@ -130,16 +125,24 @@ class MainActivity : AppCompatActivity() {
                 else -> "您连接的wifi似乎不是校园网"
             }
 
-            Handler(Looper.getMainLooper()).post {
-                if (rstTxt.startsWith("E")) {
-                    val title = if (rstTxt.startsWith("E3")) "登录失败！" else "失败惹..."
-                    showAlertDialog(title, if (rstTxt.startsWith("E3")) rstTxt.substring(3) else rstTxt)
-                } else {
-                    showAlertDialog("提示", rstTxt)
-                }
-                loginButton.isEnabled = true
+            withContext(Dispatchers.Main) {
+                handleLoginResult(rstTxt, loginButton)
             }
         }
+    }
+
+    private fun handleLoginResult(rstTxt: String, loginButton: Button) {
+        if (rstTxt.startsWith("E")) {
+            val title = if (rstTxt.startsWith("E3")) "登录失败！" else "失败惹..."
+            showAlertDialog(title, if (rstTxt.startsWith("E3")) rstTxt.substring(3) else rstTxt)
+        } else {
+            showAlertDialog("提示", rstTxt)
+        }
+        setLoginButtonEnabled(loginButton, true)
+    }
+
+    private fun setLoginButtonEnabled(button: Button, isEnabled: Boolean) {
+        button.isEnabled = isEnabled
     }
 
     private fun showAlertDialog(title: String, message: String) {
