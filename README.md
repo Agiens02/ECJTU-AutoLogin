@@ -5,3 +5,5 @@
 使用kotlin重构,使用方法和[ECJTUsWLANAutoLogin](https://github.com/XY0797/ECJTUsWLANAutoLogin)项目一致
 
 如有问题请在[issue](https://github.com/Agiens02/ECJTUAutoLogin/issues)提交
+
+桌面端请查看[ECJTULoginTool-desktop](https://github.com/Agiens02/ECJTULoginTool-desktop)，支持开机自启，登录/注销功能
