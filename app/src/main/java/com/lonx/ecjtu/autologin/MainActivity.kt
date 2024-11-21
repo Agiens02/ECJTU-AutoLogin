@@ -115,11 +115,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            val state = withContext(Dispatchers.IO) { AutoLoginECJTUAPI().getState() }
+            val state = withContext(Dispatchers.IO) { AutoLoginECJTUAPI.getState() }
             val rstTxt = when (state) {
                 1 -> "您似乎没有网络连接"
                 3 -> withContext(Dispatchers.IO) {
-                    AutoLoginECJTUAPI().login(account, password, getISPSelect())
+                    AutoLoginECJTUAPI.login(account, password, getISPSelect())
                 }
                 4 -> "您已经处于登录状态"
                 else -> "您连接的wifi似乎不是校园网"
